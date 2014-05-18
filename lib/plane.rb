@@ -1,6 +1,6 @@
 class Plane
 
-  def initialize(name = "Some Name")
+  def initialize(name = "Boeing")
     @name   = name
     @flying = true
   end

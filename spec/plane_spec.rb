@@ -1,4 +1,5 @@
 require './lib/plane'
+# require 'airport'
 
 describe 'Plane' do
 
