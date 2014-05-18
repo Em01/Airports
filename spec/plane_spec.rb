@@ -2,6 +2,8 @@ require './lib/plane'
 
 describe 'Plane' do
 
+  let(:plane) { Plane.new }
+
   context 'At initialization' do 
 
     it 'is flying' do 
@@ -49,4 +51,3 @@ end
   end
 
 end
-
