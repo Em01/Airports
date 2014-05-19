@@ -6,86 +6,90 @@ describe "Airport" do
   let(:airport) { Airport.new("Gatwick") }
   let(:plane) { Plane.new }
 
-    context "at initialization" do 
+  context "at initialization" do 
 
-      it "has a name" do
-       expect(airport.name).to eq("Gatwick")
-      end 
+    it "has a name" do
+      expect(airport.name).to eq("Gatwick")
+    end 
 
-      it "has a maximum capacity" do 
+    it "has a maximum capacity" do 
        @maximum_capacity = 8
        expect(airport.capacity).to eq(@maximum_capacity)
-      end
-
-      it "is empty at its first creation" do 
-       expect(airport.planes_count).to eq(0)
-      end
     end
 
-    context "the control tower" do 
+    it "is empty at its first creation" do 
+       expect(airport.planes_count).to eq(0)
+    end
 
-      before do 
-       airport.stub(:weather_stormy?).and_return(false)
-      end
+  end
 
-      it "should allow a plane to be released" do 
+  context "the control tower" do 
+
+    before do 
+      airport.stub(:weather_stormy?).and_return(false)
+    end
+
+    it "should allow a plane to be released" do 
        expect(airport.planes_count).to eq(0)
        airport.park(plane)
        expect(airport.planes_count).to eq(1)
-       airport.discharge(plane)
+       airport.release(plane)
        expect(airport.planes_count).to eq(0)
-      end
+    end
 
-      it "should allow a plane to park after it has landed" do 
+    it "should allow a plane to park after it has landed" do 
        expect(airport.planes_count).to eq(0)
        airport.park(plane)
        expect(airport.planes_count).to eq(1)
-      end
+    end
 
-      it "should change a planes status once it has taken off" do 
+    it "should change a planes status once it has taken off" do 
        airport.park(plane)
        expect(plane).not_to be_flying
-       airport.discharge(plane)
+       airport.release(plane)
        expect(plane).to be_flying
-      end
+    end
 
-      context "the advanced control tower" do 
-       before do 
-       airport.stub(:weather_stormy?).and_return(false)
-      end
+  context "the advanced control tower" do 
+  
+    before do 
+      airport.stub(:weather_stormy?).and_return(false)
+    end
 
-      it "should have an awareness of the planes that are parked in the airport" do 
+    it "should have an awareness of the planes that are parked in the airport" do 
        plane.land!
-       expect { airport.discharge(plane) }.to raise_error(RuntimeError)
-      end
+       expect { airport.release(plane) }.to raise_error(RuntimeError)
+    end
 
-      it "should turn away a plane from landing if the maximum capacity of the airport has been reached" do 
+    it "should turn away a plane from landing if the maximum capacity of the airport has been reached" do 
        airport.capacity.times { airport.park(Plane.new) }
        expect { airport.park(Plane.new("Boeing")) }.to raise_error(RuntimeError)
-      end
     end
 
-    context "weather problems" do 
+  end
 
-      before do 
-       airport.park(plane)
-       airport.stub(:weather_stormy?).and_return(true)
-      end
+  context "weather problems" do 
 
-      it 'should know if the weather is sunny or stormy' do 
+    before do 
+      airport.park(plane)
+      airport.stub(:weather_stormy?).and_return(true)
+    end
+
+    it 'should know if the weather is sunny or stormy' do 
        expect(airport.weather_stormy?).to be(true)
-      end
-
-      it 'will not allow a plane to land if it is not sunny' do 
-       expect{airport.park(plane)}.to raise_error(RuntimeError)
-      end
-
-      it 'will not allow planes to take off if it is stormy?' do
-        expect{airport.discharge(plane)}.to raise_error(RuntimeError)
-      end
     end
 
-    context 'the grand finale' do 
+    it 'will not allow a plane to land if it is not sunny' do 
+       expect{airport.park(plane)}.to raise_error(RuntimeError)
+    end
+
+    it 'will not allow planes to take off if it is stormy?' do
+        expect{airport.release(plane)}.to raise_error(RuntimeError)
+    end
+
+  end
+
+  context 'the grand finale' do 
 
       before do 
         airport.stub(:weather_stormy?).and_return(false)
@@ -97,11 +101,14 @@ describe "Airport" do
       end
 
       it 'when an airport is full then release all planes' do 
-        airport.grand_finale_discharge!
+        airport.grand_finale_release!
         expect(airport.planes_count).to eq 0
       end
+
     end
+
   end
+  
 end
 
     

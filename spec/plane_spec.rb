@@ -31,7 +31,9 @@ describe 'Plane' do
       boeing.land!
       expect(boeing).not_to be_flying
     end
+
   end
+
 end
 
   context 'taking off' do
@@ -47,6 +49,7 @@ end
       boeing.takeoff!
       expect(boeing).to be_flying
     end
+    
   end
 
 end

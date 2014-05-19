@@ -1,21 +1,22 @@
 require_relative 'weather'
 require_relative 'plane'
+
 class Airport
 
-include Weather
+  include Weather
 
-  attr_reader :name, :capacity 
+    attr_reader :name, :capacity 
 
     Maximum_Capacity = 8
 
     def initialize(name, maximum_capacity=8)
-    @name   = name
-    @capacity = maximum_capacity
-    @planes = []
+      @name   = name
+      @capacity = maximum_capacity
+      @planes = []
     end
 
     def planes_count
-    @planes.count 
+      @planes.count 
     end
 
     def park(plane)
@@ -25,7 +26,7 @@ include Weather
       @planes << plane
     end
 
-    def discharge(plane)
+    def release(plane)
       raise "Sorry, There is no longer a plane parked here!" if !@planes.include?(plane)
       raise "Sorry you cannot fly today, the weather is too bad!" if weather_stormy?
       @planes.delete(plane)
@@ -37,14 +38,15 @@ include Weather
     end
 
     def full?
-     @planes.count == @capacity
+      @planes.count == @capacity
     end
 
-    def grand_finale_discharge!
-    while full?
-      discharge @planes
+    def grand_finale_release!
+      while full?
+      release @planes
     end
   
   end
+
 end
 
