@@ -1,5 +1,4 @@
 require './lib/plane'
-# require 'airport'
 
 describe 'Plane' do
 
@@ -13,15 +12,14 @@ describe 'Plane' do
 
     it 'has a name' do
        expect(Plane.new).to respond_to(:name)
-      # expect(Plane.new.name).to eq("Some Name")
-      plane = Plane.new("Boeing")
-      expect(plane.name).to eq "Boeing"
+       plane = Plane.new("Boeing")
+       expect(plane.name).to eq "Boeing"
     end 
 
   end
 
   context 'landing' do
-    context 'it should' do 
+  context 'it should' do 
 
     it 'can land' do
       expect(Plane.new).to respond_to(:land!)  
@@ -33,8 +31,8 @@ describe 'Plane' do
       boeing.land!
       expect(boeing).not_to be_flying
     end
-end
   end
+end
 
   context 'taking off' do
     
