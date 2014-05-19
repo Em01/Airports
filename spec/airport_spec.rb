@@ -8,10 +8,10 @@ describe "Airport" do
 
   context "at initialization" do 
 
-    it 'has a name' do
+
+
+    it "has a name" do
     expect(airport.name).to eq("Gatwick")
-    #   airport = Airport.new("Gatwick")
-    #   expect(airport.name).to eq "Gatwick"
     end 
 
    it "has a maximum capacity" do 
@@ -25,6 +25,10 @@ describe "Airport" do
   end
 
   context "the control tower" do 
+
+    before do 
+      airport.stub(:weather_stormy?).and_return(false)
+    end
 
         it "should allow a plane to be released" do 
       expect(airport.planes_count).to eq(0)
@@ -50,6 +54,9 @@ describe "Airport" do
     end
 
     context "the advanced control tower" do 
+      before do 
+        airport.stub(:weather_stormy?).and_return(false)
+      end
 
       it "should have an awareness of the planes that are parked in the airport" do 
   plane.land!
@@ -60,7 +67,31 @@ end
       airport.capacity.times { airport.park(Plane.new) }
       expect { airport.park(Plane.new("Boeing")) }.to raise_error(RuntimeError)
 end
+end
+
+ context "weather problems" do 
+
+before do 
+airport.park(plane)
+airport.stub(:weather_stormy?).and_return(true)
+end
+
+it 'should know if the weather is stormy or sunny' do 
+ expect(airport.weather_stormy?).to be(true)
+end
+
+it 'planes cannot land if it is not sunny' do 
+  expect{airport.park(plane)}.to raise_error(RuntimeError)
+end
+
+it 'planes cannot take off if it is stormy?' do
+expect{airport.discharge(plane)}.to raise_error(RuntimeError)
+end
 
 end
 end
-    end
+
+end
+
+
+    

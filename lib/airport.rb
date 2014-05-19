@@ -1,4 +1,8 @@
+require_relative 'weather'
+require_relative 'plane'
 class Airport
+
+include Weather
 
   attr_reader :name, :capacity 
 
@@ -15,6 +19,7 @@ def planes_count
 end
 
 def park(plane)
+  raise "Sorry! You cannot land due to the weather conditions !" if weather_stormy?
   raise "We are so sorry but the airport is no full, please try landing at a different airport-we apologise for the inconvenience caused" if full?
   plane.land!
   @planes << plane
@@ -22,6 +27,7 @@ end
 
 def discharge(plane)
   raise "Sorry, There is no longer a plane parked here!" if !@planes.include?(plane)
+  raise "Sorry you cannot fly today, the weather is too bad!" if weather_stormy?
   @planes.delete(plane)
   plane.takeoff!
 end  
