@@ -1,10 +1,15 @@
-Airplanes Project
+#Airports (Arcitect Challenge) 
+=================
 
-Makers Academy week 3 test (Architect Project)
+This was the test set at the end of our third week at Makers Academy and it followed on from the Boris Bikes project which we did during the week that introuduced us to OOP and OOD. We were told to imagine that we were writing software to control the flow of planes at an airport. We also had to consider the weather, this would normally be sunny but at times stormy and at these times no plane could take off and land. Every plane had to have a status as to whether it was flying or landing. This was my third attempt at the challenge. RSpec was used throughout for test coverage.
+###Technologies Used
+----------
 
-The task was as follows...
+Sublime Text
 
-    "Imagine you're writing software to control the flow of planes at an airport. The planes can land and take off provided that the weather is sunny. Occasionally it may be stormy, in which case no planes can land or take off."
+###Languages Used
+----------
+Ruby
 
-The project was written in Ruby, using Sublime Text Editor and RSpec was used throughout!
+
 
